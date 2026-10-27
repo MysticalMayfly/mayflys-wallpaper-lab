@@ -51,15 +51,27 @@ You only need to allow it once.
 1. Download `Mayflys-Wallpaper-Lab.zip` from the [Releases](../../releases) page and double-click it to unzip.
 2. Drag **Mayfly's Wallpaper Lab** into your **Applications** folder. Open it from there, not from Downloads:
    macOS runs apps opened from Downloads from a temporary copy, which breaks the login item and the Finder menu.
-3. Double-click the app. macOS says it can't check it for malicious software. Click **Done**.
-4. Open **System Settings → Privacy & Security**, scroll down to the message saying *Mayfly's Wallpaper Lab was
-   blocked*, and click **Open Anyway**. Confirm with your password or Touch ID.
+3. Double-click the app. macOS shows *"Mayfly's Wallpaper Lab" Not Opened* and says Apple could not verify it is
+   free of malware. Click **Done**. Don't click **Move to Bin**: that deletes the app.
 
-   If you prefer Terminal, this one command does the same as steps 3 and 4:
+   <img src="docs/install-1-not-opened.png" alt="The &quot;Mayfly's Wallpaper Lab&quot; Not Opened message, with the Done and Move to Bin buttons" width="300">
+
+4. Open **System Settings → Privacy & Security** and scroll down to the **Security** section. Next to
+   *"Mayfly's Wallpaper Lab" was blocked to protect your Mac*, click **Open Anyway**.
+
+   <img src="docs/install-2-open-anyway.png" alt="The Security section of Privacy &amp; Security, with the Open Anyway button next to the blocked app" width="700">
+
+5. Enter your password or use Touch ID, then click **Open Anyway** once more in the message that follows. The app
+   opens, and from now on it opens normally.
+
+   If the button isn't there, it has timed out: it only shows for about an hour after macOS blocks the app.
+   Double-click the app again, click **Done**, and it comes back.
+
+   If you prefer Terminal, this one command does the same as steps 3 to 5:
    ```bash
    xattr -dr com.apple.quarantine "/Applications/Mayfly's Wallpaper Lab.app"
    ```
-5. The app opens with a short **Setup** checklist. Each item ticks itself once it's done:
+6. The app opens with a short **Setup** checklist. Each item ticks itself once it's done:
    - **Running from the Applications folder.** Ticked if you followed step 2.
    - **Apple's aerials are on this Mac.** The app's aerial is modelled on one of Apple's, so at least one Apple
      aerial must have been downloaded. If this isn't ticked, click **Open Wallpaper Settings**, click any aerial
