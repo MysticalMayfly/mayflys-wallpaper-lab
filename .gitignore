@@ -1,0 +1,6 @@
+.DS_Store
+# Build output (attach the zipped app to a GitHub release instead)
+Mayfly's Wallpaper Lab.app/
+*.zip
+# Files from the experiments that found the five-level layout; not part of the app
+experiment-backup/
