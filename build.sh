@@ -20,8 +20,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>CFBundleExecutable</key><string>MayflysWallpaperLab</string>
   <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundlePackageType</key><string>APPL</string>
-  <key>CFBundleShortVersionString</key><string>0.2</string>
-  <key>CFBundleVersion</key><string>2</string>
+  <key>CFBundleShortVersionString</key><string>1.0</string>
+  <key>CFBundleVersion</key><string>3</string>
   <key>LSMinimumSystemVersion</key><string>14.0</string>
   <key>CFBundleURLTypes</key><array><dict>
     <key>CFBundleURLName</key><string>local.mayfly.wallpaperlab</string>
@@ -43,8 +43,8 @@ cat > "$EXT/Contents/Info.plist" <<PLIST
   <key>CFBundleDisplayName</key><string>Mayfly's Wallpaper Lab</string>
   <key>CFBundleExecutable</key><string>MayflysWallpaperLabFinder</string>
   <key>CFBundlePackageType</key><string>XPC!</string>
-  <key>CFBundleShortVersionString</key><string>0.2</string>
-  <key>CFBundleVersion</key><string>2</string>
+  <key>CFBundleShortVersionString</key><string>1.0</string>
+  <key>CFBundleVersion</key><string>3</string>
   <key>LSMinimumSystemVersion</key><string>14.0</string>
   <key>NSExtension</key><dict>
     <key>NSExtensionPointIdentifier</key><string>com.apple.FinderSync</string>

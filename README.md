@@ -48,7 +48,7 @@ stop.
 The app is free and not signed by a registered Apple developer, so the first time you open it macOS will block it.
 You only need to allow it once.
 
-1. Download `Mayfly's Wallpaper Lab.zip` from the [Releases](../../releases) page and double-click it to unzip.
+1. Download `Mayflys-Wallpaper-Lab.zip` from the [Releases](../../releases) page and double-click it to unzip.
 2. Drag **Mayfly's Wallpaper Lab** into your **Applications** folder. Open it from there, not from Downloads:
    macOS runs apps opened from Downloads from a temporary copy, which breaks the login item and the Finder menu.
 3. Double-click the app. macOS says it can't check it for malicious software. Click **Done**.
@@ -182,7 +182,7 @@ This builds `Mayfly's Wallpaper Lab.app` next to the script, including the Finde
 release, zip it with `ditto` so the app bundle survives the download intact:
 
 ```bash
-ditto -c -k --keepParent "Mayfly's Wallpaper Lab.app" "Mayfly's Wallpaper Lab.zip"
+ditto -c -k --keepParent "Mayfly's Wallpaper Lab.app" Mayflys-Wallpaper-Lab.zip
 ```
 
 The app also has a command-line mode for testing:
