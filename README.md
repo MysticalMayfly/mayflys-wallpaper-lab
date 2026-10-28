@@ -42,7 +42,7 @@ stop.
 
 ## Requirements
 - A Mac with Apple silicon (M1 or later).
-- macOS 27. It was built and tested on macOS 27.0.1.
+- macOS 27. It was built and tested on macOS 27.0.1 and 27.2.
 
 ## Install
 The app is free and not signed by a registered Apple developer, so the first time you open it macOS will block it.
@@ -119,6 +119,10 @@ macOS keeps its aerials in `~/Library/Application Support/com.apple.wallpaper/ae
 When Apple publishes a new list of aerials, macOS replaces `entries.json` and the app's entry disappears. The app
 checks when it opens and every 10 minutes, and adds the entry back if needed.
 
+macOS 27.2 also has its own copy of the list built into the system, and uses that copy instead when its `version`
+number is higher. The app's entry isn't in the built-in copy, so the app keeps the downloaded list's `version` at
+least as high as the built-in one.
+
 ### Converting the video
 macOS's lock-screen player expects videos in exactly the shape of Apple's aerials:
 
@@ -165,6 +169,9 @@ macOS has blocked it, and only for about an hour. Or use the Terminal command in
 
 **The lock screen shows one of Apple's aerials instead of my video.** Open the app: it restores its entry when it
 opens. If that doesn't fix it, open **Setup…** and check that *Apple's aerials are on this Mac* is ticked.
+
+**The screen flashes grey and the old wallpaper comes back (macOS 27.2).** Version 1.0 doesn't work on
+macOS 27.2. Download the latest version from [Releases](../../releases) and replace the app in Applications.
 
 **The screen goes black a few seconds after locking.** Turn on *Keep the screen on while locked* in the app.
 
