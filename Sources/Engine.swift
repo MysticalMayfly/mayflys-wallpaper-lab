@@ -83,8 +83,11 @@ enum Engine {
         guard fm.fileExists(atPath: entryVideo.path) else { return false }
         if entryExists() {
             // An entry from before the rename keeps working but shows the old name; bring it up to date.
-            guard (try? renameEntry()) == true else { return false }
-            markAsDownloaded(entryVideo)
+            let renamed = (try? renameEntry()) == true
+            // After a macOS update the built-in list can be newer than ours again.
+            let raised = (try? matchSystemListVersion()) == true
+            guard renamed || raised else { return false }
+            if renamed { markAsDownloaded(entryVideo) }
         } else {
             guard (try? addEntry()) != nil else { return false }
         }
@@ -135,7 +138,10 @@ enum Engine {
     private static func addEntry() throws {
         var manifest = try loadManifest()
         var assets = manifest["assets"] as! [[String: Any]]
-        if assets.contains(where: { $0["id"] as? String == entryID }) { return }
+        if assets.contains(where: { $0["id"] as? String == entryID }) {
+            _ = try matchSystemListVersion()
+            return
+        }
         let downloaded = Set(((try? fm.contentsOfDirectory(atPath: videosDir.path)) ?? []).map { ($0 as NSString).deletingPathExtension })
         let candidates = assets.filter {
             $0["url-4K-SDR-240FPS"] != nil && !(($0["subcategories"] as? [Any]) ?? []).isEmpty
@@ -155,7 +161,32 @@ enum Engine {
         entry["pointsOfInterest"] = [String: Any]()
         assets.insert(entry, at: position + 1)
         manifest["assets"] = assets
+        _ = raiseVersion(&manifest)
         try saveManifest(manifest)
+    }
+
+    /// macOS 27.2 ships its own copy of the aerial list inside the system and, when that copy's "version" is
+    /// higher than the downloaded list's, uses it instead: our entry isn't in it, so the wallpaper silently
+    /// falls back to an Apple aerial. Found by experiment on 27.2 (built-in version 2, downloaded 1; marking
+    /// ours 2 or more brings it back). Apple's next catalogue download replaces the list, and `repair()` redoes this.
+    static let systemManifest = URL(fileURLWithPath:
+        "/System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/Resources/entries.json")
+
+    /// Raises the list's version to the built-in list's. Returns whether it changed.
+    private static func raiseVersion(_ manifest: inout [String: Any]) -> Bool {
+        guard let data = try? Data(contentsOf: systemManifest),
+              let system = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
+              let systemVersion = system["version"] as? Int,
+              (manifest["version"] as? Int ?? 0) < systemVersion else { return false }
+        manifest["version"] = systemVersion
+        return true
+    }
+
+    private static func matchSystemListVersion() throws -> Bool {
+        var manifest = try loadManifest()
+        guard raiseVersion(&manifest) else { return false }
+        try saveManifest(manifest)
+        return true
     }
 
     /// Gives an existing entry the current name and address. Returns whether it changed.
